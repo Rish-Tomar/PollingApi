@@ -20,7 +20,20 @@ module.exports.viewQuestion =async (req,res)=>{
     })
     
 }
+module.exports.showQuestion =async (req,res)=>{
+    const ques = await Question.find()
 
+    if(ques){
+        return res.status(200).json({
+            message:'Questions Found successfully',
+            question:ques
+        })
+    }
+    return res.status(404).json({
+        message:'No question exists'
+    })
+    
+}
 module.exports.createQuestion= async (req,res)=>{
 
     try{

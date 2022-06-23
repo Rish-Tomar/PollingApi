@@ -5,6 +5,7 @@ const Router= express.Router();
 
 // for Questions
    //get request 
+       Router.get('/',questionController.showQuestion)
        Router.get('/:id',questionController.viewQuestion)
        Router.get('/:id/delete',questionController.deleteQuestion)
    //post requests
