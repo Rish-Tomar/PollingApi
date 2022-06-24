@@ -21,24 +21,34 @@ module.exports.viewQuestion =async (req,res)=>{
     
 }
 module.exports.showQuestion =async (req,res)=>{
-    const ques = await Question.find()
+    try{
 
-    if(ques){
-        return res.status(200).json({
-            message:'Questions Found successfully',
-            question:ques
+        const ques = await Question.find()
+        if(ques){
+            return res.status(200).json({
+                message:'Questions Found successfully',
+                question:ques
+            })
+        }
+        return res.status(404).json({
+            message:'No question exists'
         })
+    }catch(err)
+    {
+        if(err){
+            console.log('error',error)
+            return res.status(500).json({
+                message:'error occured, check the params you are sending'
+            })
+        }
     }
-    return res.status(404).json({
-        message:'No question exists'
-    })
     
 }
 module.exports.createQuestion= async (req,res)=>{
 
     try{
         console.log('enttered into create usetion')
-        const count=await Question.countDocuments();
+        var count=await Question.countDocuments();
         console.log('count of documents', count)
         console.log('req.body',req.body)
 
@@ -55,7 +65,8 @@ module.exports.createQuestion= async (req,res)=>{
         if(ques){
             return res.status(200).json({
                 message:"Question has been created",
-                back:req.body.title
+                Your_Question:req.body.title,
+                question_id:ques.id
             })
         }
         return res.status(200).json({
@@ -64,11 +75,12 @@ module.exports.createQuestion= async (req,res)=>{
     
         
     }catch(err){
-        return res.status(500).json({
-            message:"error occured"
-        })
+        if(err){
+            return res.status(500).json({
+                message:"error occured"
+            })
+        }
     }
-
 }
 
 module.exports.createOptions= async (req,res)=>{
@@ -90,7 +102,7 @@ module.exports.createOptions= async (req,res)=>{
             ques.options.push(pushOption)
             ques.save()
             return res.status(200).json({
-                message:'hellow done',
+                message:'Option created',
                 push:pushOption
                 })
         }
