@@ -1,3 +1,5 @@
+# PollingApi
+
 # How to setup on Local Machine
 
 - Clone the repository or download the code and extract.
@@ -7,6 +9,7 @@
 - then run 'npm start' to run the server
 
 ### After starting server use following links 
+
 ##### For viewing all questions use
 - http://localhost:8000/api/v1/questions
 
